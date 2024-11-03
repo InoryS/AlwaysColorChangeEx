@@ -14,12 +14,12 @@ using CM3D2.AlwaysColorChangeEx.Plugin.UI;
 using CM3D2.AlwaysColorChangeEx.Plugin.UI.Helper;
 using CM3D2.AlwaysColorChangeEx.Plugin.Util;
 
-[assembly: AssemblyVersion("0.3.7.0")]
+[assembly: AssemblyVersion("0.3.7.1")]
 namespace CM3D2.AlwaysColorChangeEx.Plugin {
 
 
     [PluginName("COM3D25_ACCex")]
-    [PluginVersion("0.3.7.0")]
+    [PluginVersion("0.3.7.1")]
     class AlwaysColorChangeEx : PluginBase {
 
         public static volatile string PluginName;
