@@ -16,13 +16,17 @@ namespace CM3D2.AlwaysColorChangeEx.Plugin {
     public class FileBrowser {
         // Called when the user clicks cancel or select
         public delegate void FinishedCallback(string path);
+
+        protected string inputPath = string.Empty;
         // Defaults to working directory
-        public string CurrentDirectory {
-            get {
-                return currentDir;
-            }
-            set {
+
+        public string CurrentDirectory
+        {
+            get { return currentDir; }
+            set
+            {
                 SetNewDirectory(value);
+                inputPath = value;
                 SwitchDirectoryNow();
             }
         }
@@ -296,6 +300,23 @@ namespace CM3D2.AlwaysColorChangeEx.Plugin {
                     GUI.enabled = true;
                     GUILayout.EndHorizontal();
                 }
+
+                GUILayout.BeginHorizontal();
+                GUILayout.Label("input path：", GUILayout.Width(70));
+                inputPath = GUILayout.TextField(inputPath, GUILayout.ExpandWidth(true));
+
+                if (Directory.Exists(inputPath))
+                {
+                    SetNewDirectory(inputPath);
+                    SwitchDirectoryNow();
+                }
+                else
+                {
+                    Debug.LogWarning("path not exist：" + inputPath);
+                }
+
+                GUILayout.EndHorizontal();
+
                 scrollPosition = GUILayout.BeginScrollView(scrollPosition, false, true, 
                                                              GUI.skin.horizontalScrollbar, 
                                                              GUI.skin.verticalScrollbar, GUI.skin.box );
