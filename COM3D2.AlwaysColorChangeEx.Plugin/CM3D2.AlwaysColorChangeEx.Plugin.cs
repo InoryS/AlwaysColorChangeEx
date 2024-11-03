@@ -16,16 +16,10 @@ using CM3D2.AlwaysColorChangeEx.Plugin.Util;
 
 [assembly: AssemblyVersion("0.3.7.0")]
 namespace CM3D2.AlwaysColorChangeEx.Plugin {
-#if COM3D2
-    [PluginFilter("COM3D2x64"),
-#else
-    [PluginFilter("CM3D2x64"),
-     PluginFilter("CM3D2VRx64"),
-     PluginFilter("CM3D2OHx64"),
-     PluginFilter("CM3D2OHVRx64"),
-#endif
-     PluginName("COM3D25_ACCex"),
-     PluginVersion("0.3.7.0")]
+
+
+    [PluginName("COM3D25_ACCex")]
+    [PluginVersion("0.3.7.0")]
     class AlwaysColorChangeEx : PluginBase {
 
         public static volatile string PluginName;
@@ -852,7 +846,9 @@ namespace CM3D2.AlwaysColorChangeEx.Plugin {
 #if COM3D2
                     materialViews = InitMaterialView(renderer1, menufile, (int)slot.SlotId);
 #else
-                    materialViews = InitMaterialView(renderer1, menufile, slot.CategoryIdx);
+                    // NO CM3D2 SUPPORT
+                    //materialViews = InitMaterialView(renderer1, menufile, slot.CategoryIdx);
+                    materialViews = InitMaterialView(renderer1, menufile, (int)slot.SlotId);
 #endif
                 } else {
                     targetMaterials = EMPTY_ARRAY;
