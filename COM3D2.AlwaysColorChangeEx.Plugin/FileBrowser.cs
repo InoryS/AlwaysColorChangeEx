@@ -20,6 +20,9 @@ namespace CM3D2.AlwaysColorChangeEx.Plugin {
         protected string inputPath = string.Empty;
         // Defaults to working directory
 
+        private string lastSelectedPath = string.Empty;
+
+
         public string CurrentDirectory
         {
             get { return currentDir; }
@@ -301,6 +304,12 @@ namespace CM3D2.AlwaysColorChangeEx.Plugin {
                     GUILayout.EndHorizontal();
                 }
 
+                if (Directory.Exists(lastSelectedPath))
+                {
+                    SetNewDirectory(lastSelectedPath);
+                    SwitchDirectoryNow();
+                }
+
                 GUILayout.BeginHorizontal();
                 GUILayout.Label("input path：", GUILayout.Width(70));
                 inputPath = GUILayout.TextField(inputPath, GUILayout.ExpandWidth(true));
@@ -369,6 +378,8 @@ namespace CM3D2.AlwaysColorChangeEx.Plugin {
                     } else {
                         callback(selectedDir > -1 ? Path.Combine(currentDir, directories[selectedDir]) : currentDir);
                     }
+
+                    lastSelectedPath = currentDir;
                 }
                 GUI.enabled = true;
                 GUILayout.EndHorizontal();
