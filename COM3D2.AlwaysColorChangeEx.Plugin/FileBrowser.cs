@@ -17,10 +17,8 @@ namespace CM3D2.AlwaysColorChangeEx.Plugin {
         // Called when the user clicks cancel or select
         public delegate void FinishedCallback(string path);
 
-        protected string inputPath = string.Empty;
         // Defaults to working directory
 
-        private string lastSelectedPath = string.Empty;
 
 
         public string CurrentDirectory
@@ -271,6 +269,11 @@ namespace CM3D2.AlwaysColorChangeEx.Plugin {
             SwitchDirectoryNow();
         }
 
+        private string inputPath = string.Empty;
+        private string lastSelectedPath = string.Empty;
+        private string previousInputPath = string.Empty;
+        private string previousLastSelectedPath = string.Empty;
+
         public void OnGUI() {
             GUILayout.BeginArea(screenRect, name, GUI.skin.window);
             try {
@@ -304,24 +307,24 @@ namespace CM3D2.AlwaysColorChangeEx.Plugin {
                     GUILayout.EndHorizontal();
                 }
 
-                if (Directory.Exists(lastSelectedPath))
-                {
-                    SetNewDirectory(lastSelectedPath);
-                    SwitchDirectoryNow();
+                if (lastSelectedPath != previousLastSelectedPath) {
+                    previousLastSelectedPath = lastSelectedPath;
+                    if (Directory.Exists(lastSelectedPath)) {
+                        SetNewDirectory(lastSelectedPath);
+                        SwitchDirectoryNow();
+                    }
                 }
 
                 GUILayout.BeginHorizontal();
                 GUILayout.Label("input path：", GUILayout.Width(70));
                 inputPath = GUILayout.TextField(inputPath, GUILayout.ExpandWidth(true));
 
-                if (Directory.Exists(inputPath))
-                {
-                    SetNewDirectory(inputPath);
-                    SwitchDirectoryNow();
-                }
-                else
-                {
-                    Debug.LogWarning("path not exist：" + inputPath);
+                if (inputPath != previousInputPath) {
+                    previousInputPath = inputPath;
+                    if (Directory.Exists(inputPath)) {
+                        SetNewDirectory(inputPath);
+                        SwitchDirectoryNow();
+                    }
                 }
 
                 GUILayout.EndHorizontal();
